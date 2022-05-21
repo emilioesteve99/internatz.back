@@ -1,4 +1,4 @@
-import { Global, MiddlewareConsumer, Module, OnApplicationBootstrap } from "@nestjs/common";
+import { Global, MiddlewareConsumer, Module } from "@nestjs/common";
 import { TranslationService } from "@Shared/translation/Translation.service";
 import { RedisConfigurationType, RedisProvider } from "@Shared/cache/redis/Redis.provider";
 import { ContextState } from "@Shared/context/ContextState";
