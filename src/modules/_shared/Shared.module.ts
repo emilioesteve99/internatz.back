@@ -1,4 +1,4 @@
-import { Global, Module } from "@nestjs/common";
+import { Global, MiddlewareConsumer, Module, OnApplicationBootstrap } from "@nestjs/common";
 import { TranslationService } from "@Shared/translation/Translation.service";
 import { RedisConfigurationType, RedisProvider } from "@Shared/cache/redis/Redis.provider";
 import { ContextState } from "@Shared/context/ContextState";
@@ -6,12 +6,19 @@ import { getEnv } from "@Shared/environment/GetEnv";
 import { SharedConstants } from "@Shared/Shared.constants";
 import { CacheService } from "@Shared/cache/Cache.service";
 import { RedisClientType } from "redis";
-import { MongoProvider } from "./persistence/mongo/Mongo.provider";
-import { MongoConfigurationType } from "./persistence/mongo/MongoConfiguration";
+import { MongoProvider } from "@Shared/persistence/mongo/Mongo.provider";
+import { MongoConfigurationType } from "@Shared/persistence/mongo/MongoConfiguration";
+import { APP_FILTER } from "@nestjs/core";
+import { GlobalExceptionInterceptor } from "@Shared/exception/GlobalException.interceptor";
+import { RequestContextMiddleware } from "@Shared/context/RequestContext.middleware";
 
 @Global()
 @Module({
     providers: [
+        {
+            provide: APP_FILTER,
+            useClass: GlobalExceptionInterceptor,
+        },
         {
             provide: SharedConstants.MONGO_CLIENT,
             useFactory: () => {
@@ -45,6 +52,10 @@ import { MongoConfigurationType } from "./persistence/mongo/MongoConfiguration";
             inject: [SharedConstants.REDIS_CLIENT],
         },
     ],
-    exports: [TranslationService, CacheService]
+    exports: [TranslationService, CacheService, ContextState]
 })
-export class SharedModule {};
+export class SharedModule {
+    public configure(consumer: MiddlewareConsumer) {
+        consumer.apply(RequestContextMiddleware).forRoutes('*');
+    }
+};

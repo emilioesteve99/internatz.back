@@ -2,10 +2,11 @@ import 'module-alias/register';
 import 'dotenv/config';
 import '@Shared/environment/ReadEnv';
 import '@Shared/logger/Apm';
+import '@Shared/exception/Unhandled.interceptor';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestApplication, NestFactory } from '@nestjs/core';
 import { AppModule } from './App.module';
-import { getEnv } from './modules/_shared/environment/GetEnv';
+import { getEnv } from '@Shared/environment/GetEnv';
 
 async function bootstrap() {
     const { host, port } = getEnv<{ host: string; port: number }>('app');
