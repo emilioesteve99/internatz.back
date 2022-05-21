@@ -1,3 +1,4 @@
+import { log } from "@Shared/logger/Log";
 import { MongoClient } from "mongodb";
 import { MongoConfigurationType } from "./MongoConfiguration";
 
@@ -20,8 +21,8 @@ export async function MongoProvider (configuration: MongoConfigurationType): Pro
         client.on('serverHeartbeatFailed', () => {
             console.log('\x1b[31m%s\x1b[0m', `${`Connection ${poolNameString} (Mongodb) lost`}`);
         });
-        return client;
     } catch (error) {
+        log(error);
         console.log('\x1b[31m%s\x1b[0m', `Could not create${poolNameString}connection pool (Mongodb)`);
     }
     return client;

@@ -6,17 +6,18 @@ import { getEnv } from "@Shared/environment/GetEnv";
 import { SharedConstants } from "@Shared/Shared.constants";
 import { CacheService } from "@Shared/cache/Cache.service";
 import { RedisClientType } from "redis";
+import { MongoProvider } from "./persistence/mongo/Mongo.provider";
+import { MongoConfigurationType } from "./persistence/mongo/MongoConfiguration";
 
 @Global()
 @Module({
     providers: [
-        ContextState,
         {
-            provide: TranslationService,
-            useFactory: async () => {
-                const translationService = new TranslationService();
-                translationService.init();
-                return translationService;
+            provide: SharedConstants.MONGO_CLIENT,
+            useFactory: () => {
+                const mongoEnv = getEnv<MongoConfigurationType>('mongo');
+                mongoEnv.name = SharedConstants.MONGO_CLIENT;
+                return MongoProvider(mongoEnv);
             }
         },
         {
@@ -26,6 +27,15 @@ import { RedisClientType } from "redis";
                 if (!redisEnv.active) return null;
                 return RedisProvider(redisEnv);
             },
+        },
+        ContextState,
+        {
+            provide: TranslationService,
+            useFactory: async () => {
+                const translationService = new TranslationService();
+                translationService.init();
+                return translationService;
+            }
         },
         {
             provide: CacheService,

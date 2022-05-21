@@ -1,3 +1,4 @@
+import { log } from '@Shared/logger/Log';
 import { createClient, RedisClientType } from 'redis';
 
 export type RedisConfigurationType = {
@@ -25,6 +26,7 @@ export async function RedisProvider (configuration: RedisConfigurationType): Pro
             `Connection (Redis) created + ${parseInt((performance.now() - now).toString())} ms`,
         );
     } catch (error) {
+        log(error);
         console.log('\x1b[31m%s\x1b[0m', `Could not create connection (Redis)`);
     }
     return client;
