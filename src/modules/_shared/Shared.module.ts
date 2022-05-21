@@ -52,7 +52,12 @@ import { RequestContextMiddleware } from "@Shared/context/RequestContext.middlew
             inject: [SharedConstants.REDIS_CLIENT],
         },
     ],
-    exports: [TranslationService, CacheService, ContextState]
+    exports: [
+        ContextState,
+        TranslationService,
+        CacheService,
+        SharedConstants.MONGO_CLIENT,
+    ]
 })
 export class SharedModule {
     public configure(consumer: MiddlewareConsumer) {

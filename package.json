@@ -49,6 +49,7 @@
     "typescript": "4.6.4"
   },
   "_moduleAliases": {
-    "@Shared": "dist/modules/_shared"
+    "@Shared": "dist/modules/_shared",
+    "@Auth": "dist/modules/Auth"
   }
 }
