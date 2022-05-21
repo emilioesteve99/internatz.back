@@ -1,7 +1,7 @@
 import 'module-alias/register';
 import 'dotenv/config';
 import '@Shared/environment/ReadEnv';
-import '@Shared/logs/Apm';
+import '@Shared/logger/Apm';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestApplication, NestFactory } from '@nestjs/core';
 import { AppModule } from './App.module';
