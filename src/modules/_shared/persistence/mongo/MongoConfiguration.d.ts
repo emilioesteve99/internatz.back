@@ -1,5 +1,5 @@
 export type MongoConfigurationType = {
-    name: string;
+    name?: string;
     url: string;
     pool: {
         max: number;
