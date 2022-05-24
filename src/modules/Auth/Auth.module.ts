@@ -17,7 +17,7 @@ import { SharedConstants } from "@Shared/Shared.constants";
             provide: AuthMongoRepository,
             useFactory: async (client: MongoClient, cacheService: CacheService) => {
                 const authRepository = new AuthMongoRepository(client, cacheService);
-                await authRepository.init();
+                // await authRepository.init();
                 return authRepository;
             },
             inject: [SharedConstants.MONGO_CLIENT, CacheService],

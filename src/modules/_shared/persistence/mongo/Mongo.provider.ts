@@ -1,5 +1,5 @@
 import { log } from "@Shared/logger/Log";
-import { MongoClient } from "mongodb";
+import { MongoClient, ServerApiVersion } from "mongodb";
 import { MongoConfigurationType } from "./MongoConfiguration";
 
 export async function MongoProvider (configuration: MongoConfigurationType): Promise<MongoClient> {
@@ -15,7 +15,10 @@ export async function MongoProvider (configuration: MongoConfigurationType): Pro
             minHeartbeatFrequencyMS: 2500,
             wtimeoutMS: 2500,
             keepAlive: true,
-        });
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverApi: ServerApiVersion.v1,
+        } as any);
         await client.connect();
         console.log('\x1b[32m%s\x1b[0m', `Connection pool${poolNameString}(Mongodb) created`);
         client.on('serverHeartbeatFailed', () => {
