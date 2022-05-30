@@ -5,7 +5,7 @@ export abstract class BaseHttpController {
         data: any,
         params: {
             messages?: string[];
-        }
+        } = {}
     ): HttpResponse {
         return {
             data,

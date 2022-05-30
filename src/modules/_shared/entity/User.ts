@@ -1,8 +1,18 @@
+import * as bcrypt from 'bcrypt';
+
 export class User {
-    id: string;
-    companyId: string;
-    email: string;
-    password: string;
-    name: string;
-    dateAdd: Date;
+    public _id: string;
+    public companyId: string;
+    public email: string;
+    public password: string;
+    public name: string;
+    public dateAdd: Date;
+
+    public encriptPassword () {
+        this.password = bcrypt.hashSync(this.password, 10);
+    }
+
+    public isValidPassword (plainTextPassword: string) {
+        return bcrypt.compareSync(this.password, plainTextPassword);
+    }
 }

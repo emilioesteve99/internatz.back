@@ -6,22 +6,16 @@ import { AuthMongoRepository } from "@Auth/infrastructure/persistence/mongo/Auth
 import { MongoClient } from "mongodb";
 import { CacheService } from "@Shared/cache/Cache.service";
 import { SharedConstants } from "@Shared/Shared.constants";
+import { AuthSignUpService } from "./application/AuthSignUp.service";
 
 @Global()
 @Module({
     controllers: [AuthHttpController],
     providers: [
         AuthLoginService,
+        AuthSignUpService,
         AuthGetUserService,
-        {
-            provide: AuthMongoRepository,
-            useFactory: async (client: MongoClient, cacheService: CacheService) => {
-                const authRepository = new AuthMongoRepository(client, cacheService);
-                // await authRepository.init();
-                return authRepository;
-            },
-            inject: [SharedConstants.MONGO_CLIENT, CacheService],
-        }
+        AuthMongoRepository,
     ],
     exports: [
         AuthGetUserService,

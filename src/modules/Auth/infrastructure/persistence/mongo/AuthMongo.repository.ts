@@ -1,17 +1,18 @@
-import { Injectable } from "@nestjs/common";
+import { CouldNotSignUpUserException } from "@Auth/domain/exception/CouldNotSignUpUser.exception";
+import { UserJustExistsException } from "@Auth/domain/exception/UserJustExists.exception";
+import { WrongUserOrPasswordException } from "@Auth/domain/exception/WrongUserOrPassword.exception";
+import { Inject, Injectable } from "@nestjs/common";
 import { CacheService } from "@Shared/cache/Cache.service";
 import { User } from "@Shared/entity/User";
-import { getEnv } from "@Shared/environment/GetEnv";
 import { MongoRepository } from "@Shared/persistence/mongo/Mongo.repository";
+import { SharedConstants } from "@Shared/Shared.constants";
 import { partialAssign } from "@Shared/utils/PartialAssign";
 import { MongoClient } from "mongodb";
 
 @Injectable()
 export class AuthMongoRepository extends MongoRepository {
-    private users: UsersType = {};
-    private usersCacheKey = 'internatz:users';
-
     constructor (
+        @Inject(SharedConstants.MONGO_CLIENT)
         protected readonly client: MongoClient,
         private readonly cacheService: CacheService,
     ) {
@@ -21,35 +22,30 @@ export class AuthMongoRepository extends MongoRepository {
         })
     }
 
-    public async getUser (companyId: string, userId: string) {
-        return this.users[companyId][userId];
+    public async signUp (user: User) {
+        const { acknowledged } = await this.collection.insertOne(user as any);
+        if (!acknowledged) throw new CouldNotSignUpUserException();
+        return user;
     }
 
-    public async init () {
-        const usersReloadInterval = getEnv<number>('usersReloadInterval');
-        await this.load();
-        setInterval(() => {
-            this.load();
-        }, usersReloadInterval ?? 60000);
+    public async login (email: string, password: string, companyId: string) {
+        const exception = new WrongUserOrPasswordException();
+        const userDoc = await this.collection.findOne({ email, companyId });
+        if (!userDoc) throw exception;
+        const user = partialAssign(new User(), {
+            _id: userDoc._id as any,
+            email: userDoc.email,
+            companyId: userDoc.companyId,
+            name: userDoc.name,
+            password: userDoc.password,
+            dateAdd: userDoc.dateAdd
+        });
+        if (!user.isValidPassword(password)) throw exception;
+        return user;
     }
 
-    private async load () {
-        const cachedUsers = await this.cacheService.get(this.usersCacheKey);
-        if (cachedUsers) this.users = cachedUsers;
-        const usersDocs = await this.collection.find({}).toArray();
-        for (const doc of usersDocs) {
-            const user = partialAssign(new User(), {
-                id: doc._id as any,
-                companyId: doc.companyId,
-                email: doc.email,
-                password: doc.password,
-                name: doc.name,
-                dateAdd: doc.dateAdd,
-            });
-            if (!this.users[user.companyId]) this.users[user.companyId] = {};
-            this.users[user.companyId][user.id] = user;
-        }
+    public async checkIfUserJustExists (email: string, companyId: string) {
+        const counter = await this.collection.count({ email, companyId });
+        if (counter >= 1) throw new UserJustExistsException(email, companyId);
     }
 }
-
-type UsersType = {[companyId: string]: {[userId: string]: User}};

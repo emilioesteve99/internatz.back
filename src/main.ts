@@ -5,7 +5,7 @@ import '@Shared/logger/Apm';
 import '@Shared/exception/Unhandled.interceptor';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestApplication, NestFactory } from '@nestjs/core';
-import { AppModule } from './App.module';
+import { AppModule } from './app.module';
 import { getEnv } from '@Shared/environment/GetEnv';
 
 async function bootstrap() {
