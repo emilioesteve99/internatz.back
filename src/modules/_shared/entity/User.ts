@@ -6,6 +6,9 @@ export class User {
     public email: string;
     public password: string;
     public name: string;
+    public permissions: {
+        [permissionKey: string]: boolean;
+    };
     public dateAdd: Date;
 
     public encriptPassword () {

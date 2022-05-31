@@ -1,14 +1,25 @@
 import { AuthMongoRepository } from "@Auth/infrastructure/persistence/mongo/AuthMongo.repository";
 import { Injectable } from "@nestjs/common";
 import { AuthLoginDto } from "./dto/AuthLogin.dto";
+import * as jwt from "jsonwebtoken";
+import { getEnv } from "@Shared/environment/GetEnv";
 
 @Injectable()
 export class AuthLoginService {
+	private readonly tokenSecret = getEnv<string>('tokenSecret');
+
     constructor (
 		private readonly authMongoRepository: AuthMongoRepository
 	) {}
 
 	public async run (dto: AuthLoginDto) {
-		return this.authMongoRepository.login(dto.email, dto.password, dto.companyId);
+		const user = await this.authMongoRepository.login(
+			dto.email,
+			dto.password,
+			dto.companyId
+		);
+		return jwt.sign(user, this.tokenSecret, {
+			expiresIn: "24h"
+		});
 	}
 }

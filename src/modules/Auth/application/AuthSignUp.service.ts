@@ -19,9 +19,11 @@ export class AuthSignUpService {
 			password: dto.password,
 			companyId: dto.companyId,
 			name: dto.name,
+			permissions: {},
 			dateAdd: new Date(),
 		});
 		user.encriptPassword();
-		return this.authMongoRepository.signUp(user);
+		await this.authMongoRepository.signUp(user);
+		return user;
 	}
 }

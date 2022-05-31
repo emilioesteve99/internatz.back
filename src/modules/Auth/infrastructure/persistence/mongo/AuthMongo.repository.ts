@@ -1,8 +1,9 @@
+import { CompanyCouldNotBeRegisteredException } from "@Auth/domain/exception/CompanyCouldNotBeRegistered.exception";
 import { CouldNotSignUpUserException } from "@Auth/domain/exception/CouldNotSignUpUser.exception";
 import { UserJustExistsException } from "@Auth/domain/exception/UserJustExists.exception";
 import { WrongUserOrPasswordException } from "@Auth/domain/exception/WrongUserOrPassword.exception";
 import { Inject, Injectable } from "@nestjs/common";
-import { CacheService } from "@Shared/cache/Cache.service";
+import { Company } from "@Shared/entity/Company";
 import { User } from "@Shared/entity/User";
 import { MongoRepository } from "@Shared/persistence/mongo/Mongo.repository";
 import { SharedConstants } from "@Shared/Shared.constants";
@@ -14,7 +15,6 @@ export class AuthMongoRepository extends MongoRepository {
     constructor (
         @Inject(SharedConstants.MONGO_CLIENT)
         protected readonly client: MongoClient,
-        private readonly cacheService: CacheService,
     ) {
         super({
             collection: 'internatz',
@@ -25,7 +25,6 @@ export class AuthMongoRepository extends MongoRepository {
     public async signUp (user: User) {
         const { acknowledged } = await this.collection.insertOne(user as any);
         if (!acknowledged) throw new CouldNotSignUpUserException();
-        return user;
     }
 
     public async login (email: string, password: string, companyId: string) {
@@ -37,11 +36,17 @@ export class AuthMongoRepository extends MongoRepository {
             email: userDoc.email,
             companyId: userDoc.companyId,
             name: userDoc.name,
+            permissions: userDoc.permissions,
             password: userDoc.password,
             dateAdd: userDoc.dateAdd
         });
         if (!user.isValidPassword(password)) throw exception;
         return user;
+    }
+
+    public async registerCompany(company: Company) {
+        const { acknowledged } = await this.db.collection('company').insertOne(company as any);
+        if (!acknowledged) throw new CompanyCouldNotBeRegisteredException();
     }
 
     public async checkIfUserJustExists (email: string, companyId: string) {

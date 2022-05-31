@@ -3,10 +3,8 @@ import { AuthHttpController } from "@Auth/infrastructure/controller/AuthHttp.con
 import { AuthLoginService } from "@Auth/application/AuthLogin.service";
 import { AuthGetUserService } from "@Auth/application/AuthGetUser.service";
 import { AuthMongoRepository } from "@Auth/infrastructure/persistence/mongo/AuthMongo.repository";
-import { MongoClient } from "mongodb";
-import { CacheService } from "@Shared/cache/Cache.service";
-import { SharedConstants } from "@Shared/Shared.constants";
 import { AuthSignUpService } from "./application/AuthSignUp.service";
+import { AuthRegisterCompanyService } from "./application/AuthRegisterCompany.service";
 
 @Global()
 @Module({
@@ -15,6 +13,7 @@ import { AuthSignUpService } from "./application/AuthSignUp.service";
         AuthLoginService,
         AuthSignUpService,
         AuthGetUserService,
+        AuthRegisterCompanyService,
         AuthMongoRepository,
     ],
     exports: [
