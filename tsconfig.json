@@ -19,7 +19,8 @@
       "noFallthroughCasesInSwitch": false,
       "paths": {
           "@Shared/*": ["modules/_shared/*"],
-          "@Auth/*": ["modules/Auth/*"]
+          "@Auth/*": ["modules/Auth/*"],
+          "@Company/*": ["modules/Company/*"],
       }
   },
   "exclude": ["node_modules"]

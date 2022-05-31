@@ -54,6 +54,7 @@
   },
   "_moduleAliases": {
     "@Shared": "dist/modules/_shared",
-    "@Auth": "dist/modules/Auth"
+    "@Auth": "dist/modules/Auth",
+    "@Company": "dist/modules/Company"
   }
 }
