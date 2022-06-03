@@ -16,7 +16,6 @@ export class AuthLoginService {
 		const user = await this.authMongoRepository.login(
 			dto.email,
 			dto.password,
-			dto.companyId
 		);
 		return jwt.sign(user, this.tokenSecret, {
 			expiresIn: "24h"

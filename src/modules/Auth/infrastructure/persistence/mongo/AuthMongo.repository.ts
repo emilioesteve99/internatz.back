@@ -27,9 +27,9 @@ export class AuthMongoRepository extends MongoRepository {
         if (!acknowledged) throw new CouldNotSignUpUserException();
     }
 
-    public async login (email: string, password: string, companyId: string) {
+    public async login (email: string, password: string) {
         const exception = new WrongUserOrPasswordException();
-        const userDoc = await this.collection.findOne({ email, companyId });
+        const userDoc = await this.collection.findOne({ email });
         if (!userDoc) throw exception;
         const user = partialAssign(new User(), {
             _id: userDoc._id as any,
