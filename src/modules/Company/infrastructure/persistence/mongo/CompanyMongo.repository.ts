@@ -19,7 +19,7 @@ export class CompanyMongoRepository extends MongoRepository {
 	}
 
 	public async get(companyId: string): Promise<Company> {
-		const companyDoc = await this.collection.findOne({ companyId });
+		const companyDoc = await this.collection.findOne({ _id: companyId });
 		if (!companyDoc) throw new CompanyNotFoundException(companyId);
 		return CompanyMongoMapper.map(companyDoc);
 	}
