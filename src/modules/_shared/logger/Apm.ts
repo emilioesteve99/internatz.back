@@ -1,20 +1,21 @@
-import elasticApm, { Agent } from 'elastic-apm-node';
+import * as apm from 'elastic-apm-node';
 import { getEnv } from '../environment/GetEnv';
 
-const apmEnv = getEnv<{
+const { active, serviceName, serverUrl, secretToken } = getEnv<{
     active: boolean;
     serviceName: string;
     secretToken: string;
     serverUrl: string;
 }>('apm');
 
-var apm: Agent = null;
-if (apmEnv.active) {
-    apm = elasticApm.start({
-        serviceName: apmEnv.serviceName,
-        secretToken: apmEnv.secretToken,
-        serverUrl: apmEnv.serverUrl,
-    });
+if (active) {
+    apm.start({
+        active,
+        serviceName,
+        serverUrl,
+        secretToken,
+        environment: process.env.MODE
+    })
 }
 
 export { apm };
