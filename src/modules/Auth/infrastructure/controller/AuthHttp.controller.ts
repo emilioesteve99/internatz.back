@@ -5,8 +5,10 @@ import { AuthLoginDto } from "@Auth/application/dto/AuthLogin.dto";
 import { AuthRegisterCompanyDto } from "@Auth/application/dto/AuthRegisterCompany.dto";
 import { AuthSignUpDto } from "@Auth/application/dto/AuthSignUp.dto";
 import { Body, Controller, Post } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { BaseHttpController } from "@Shared/controller/BaseHttp.controller";
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthHttpController extends BaseHttpController {
     constructor (
