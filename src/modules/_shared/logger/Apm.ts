@@ -1,5 +1,5 @@
 import * as apm from 'elastic-apm-node';
-import { getEnv } from '../environment/GetEnv';
+import { getEnv } from '@Shared/environment/GetEnv';
 
 const { active, serviceName, serverUrl, secretToken } = getEnv<{
     active: boolean;

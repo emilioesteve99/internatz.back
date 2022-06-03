@@ -1,4 +1,4 @@
-import { log } from "@Shared/logger/Log";
+import { logError } from "@Shared/logger/LogError";
 import { MongoClient, ServerApiVersion } from "mongodb";
 import { MongoConfigurationType } from "./MongoConfiguration";
 
@@ -25,7 +25,7 @@ export async function MongoProvider (configuration: MongoConfigurationType): Pro
             console.log('\x1b[31m%s\x1b[0m', `${`Connection ${poolNameString} (Mongodb) lost`}`);
         });
     } catch (error) {
-        log(error);
+        logError(error);
         console.log('\x1b[31m%s\x1b[0m', `Could not create${poolNameString}connection pool (Mongodb)`);
     }
     return client;
