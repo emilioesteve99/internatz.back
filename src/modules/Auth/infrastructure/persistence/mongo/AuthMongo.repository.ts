@@ -17,8 +17,8 @@ export class AuthMongoRepository extends MongoRepository {
         protected readonly client: MongoClient,
     ) {
         super({
-            collection: 'internatz',
-            database: 'user'
+            collection: 'user',
+            database: 'internatz'
         })
     }
 
@@ -40,7 +40,7 @@ export class AuthMongoRepository extends MongoRepository {
             password: userDoc.password,
             dateAdd: userDoc.dateAdd
         });
-        if (!user.isValidPassword(password)) throw exception;
+        if (!await user.isValidPassword(password)) throw exception;
         return user;
     }
 

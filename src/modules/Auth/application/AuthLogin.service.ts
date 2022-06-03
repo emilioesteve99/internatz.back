@@ -17,8 +17,8 @@ export class AuthLoginService {
 			dto.email,
 			dto.password,
 		);
-		return jwt.sign(user, this.tokenSecret, {
-			expiresIn: "24h"
+		return jwt.sign(user.toPrimitive(), this.tokenSecret, {
+			expiresIn: "23h"
 		});
 	}
 }

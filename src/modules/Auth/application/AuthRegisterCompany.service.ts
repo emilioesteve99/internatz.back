@@ -33,8 +33,7 @@ export class AuthRegisterCompanyService {
 			companyId,
 			dateAdd: new Date(),
 		});
-		user.encriptPassword();
-		await this.authSignUpService.run(user);
+		await this.authSignUpService.run(user, true);
 		return company;
 	}
 }
