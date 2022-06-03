@@ -13,6 +13,6 @@ export class CompanyHttpController extends BaseHttpController {
 
 	@Get('getCompany')
 	public async getCompany (@Query() dto: CompanyGetDto) {
-		return this.companyGetService.run(dto);
+		//return this.companyGetService.run(dto);
 	}
 }

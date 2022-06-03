@@ -4,7 +4,6 @@ import { RequestContext } from './RequestContext';
 
 export class ContextState {
     public locale: string;
-    public companyId: string;
     public user: User;
     public sessionToken: string;
     public requestId: string;

@@ -1,4 +1,6 @@
 {
 	"hola": "asñlkdkfjlñasdfj f",
-	"Wrong user or password": "Wrong user or password"
+	"Wrong user or password": "Wrong user or password",
+	"Company not found": "Company not found",
+	"Company {{companyId}} not found": "Company {{companyId}} not found"
 }

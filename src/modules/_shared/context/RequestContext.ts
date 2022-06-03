@@ -12,7 +12,7 @@ export class RequestContext {
         return RequestContext.als.getStore() as ContextState;
     }
 
-    public static updateCOntext(ctx: Partial<ContextState>) {
+    public static updateContext(ctx: Partial<ContextState>) {
         Object.assign(this.get(), ctx);
     }
 }

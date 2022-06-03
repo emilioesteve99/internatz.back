@@ -11,6 +11,7 @@ import { MongoConfigurationType } from "@Shared/persistence/mongo/MongoConfigura
 import { APP_FILTER } from "@nestjs/core";
 import { GlobalExceptionInterceptor } from "@Shared/exception/GlobalException.interceptor";
 import { RequestContextMiddleware } from "@Shared/context/RequestContext.middleware";
+import { IdentityGetSessionTokenContentService } from "./identity/IdentityGetSessionTokenContent.service";
 
 @Global()
 @Module({
@@ -51,6 +52,7 @@ import { RequestContextMiddleware } from "@Shared/context/RequestContext.middlew
             },
             inject: [SharedConstants.REDIS_CLIENT],
         },
+        IdentityGetSessionTokenContentService,
     ],
     exports: [
         ContextState,

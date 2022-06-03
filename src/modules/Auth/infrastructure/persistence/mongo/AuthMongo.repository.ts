@@ -37,6 +37,7 @@ export class AuthMongoRepository extends MongoRepository {
             companyId: userDoc.companyId,
             name: userDoc.name,
             permissions: userDoc.permissions,
+            isAdmin: userDoc.isAdmin,
             password: userDoc.password,
             dateAdd: userDoc.dateAdd
         });
