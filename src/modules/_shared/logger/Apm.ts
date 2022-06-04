@@ -14,7 +14,8 @@ if (active) {
         serviceName,
         serverUrl,
         secretToken,
-        environment: process.env.MODE
+        environment: process.env.MODE,
+        logLevel: 'error'
     })
 }
 
