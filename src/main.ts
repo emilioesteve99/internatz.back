@@ -5,7 +5,7 @@ import '@Shared/logger/Apm';
 import '@Shared/exception/Unhandled.interceptor';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestApplication, NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './App.module';
 import { getEnv } from '@Shared/environment/GetEnv';
 import { ApiDocumenter } from '@Shared/documentation/ApiDocumenter';
 

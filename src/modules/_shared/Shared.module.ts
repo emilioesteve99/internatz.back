@@ -12,6 +12,7 @@ import { APP_FILTER } from "@nestjs/core";
 import { GlobalExceptionInterceptor } from "@Shared/exception/GlobalException.interceptor";
 import { RequestContextMiddleware } from "@Shared/context/RequestContext.middleware";
 import { IdentityGetSessionTokenContentService } from "./identity/IdentityGetSessionTokenContent.service";
+import { EndpointPermissionGuard } from "./guard/EndpointPermission.guard";
 
 @Global()
 @Module({
@@ -53,12 +54,14 @@ import { IdentityGetSessionTokenContentService } from "./identity/IdentityGetSes
             inject: [SharedConstants.REDIS_CLIENT],
         },
         IdentityGetSessionTokenContentService,
+        EndpointPermissionGuard,
     ],
     exports: [
         ContextState,
         TranslationService,
         CacheService,
         SharedConstants.MONGO_CLIENT,
+        EndpointPermissionGuard,
     ]
 })
 export class SharedModule {

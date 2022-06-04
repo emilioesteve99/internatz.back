@@ -1,6 +1,6 @@
 {
-	"hola": "asñlkdkfjlñasdfj f",
 	"Wrong user or password": "Wrong user or password",
 	"Company not found": "Company not found",
-	"Company {{companyId}} not found": "Company {{companyId}} not found"
+	"Company {{companyId}} not found": "Company {{companyId}} not found",
+	"User not authorized": "User not authorized"
 }

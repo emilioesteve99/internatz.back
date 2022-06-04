@@ -16,6 +16,10 @@ export class User {
     public isAdmin: boolean;
     public dateAdd: Date;
 
+    public hasPermission(scope: 'route' | 'endpoint', key: string) {
+        return this.permissions[scope]?.[key] ? true : false;
+    }
+
     public async encriptPassword () {
         this.password = bcrypt.hashSync(this.password, 10);
     }
