@@ -1,5 +1,5 @@
 export class AuthSignUpDto {
-	companyId: string;
+	enterpriseId: string;
 	email: string;
 	password: string;
 	name: string;

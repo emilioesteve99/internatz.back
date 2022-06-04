@@ -1,8 +1,8 @@
 import { AuthLoginService } from "@Auth/application/AuthLogin.service";
-import { AuthRegisterCompanyService } from "@Auth/application/AuthRegisterCompany.service";
+import { AuthRegisterEnterpriseService } from "@Auth/application/AuthRegisterEnterprise.service";
 import { AuthSignUpService } from "@Auth/application/AuthSignUp.service";
 import { AuthLoginDto } from "@Auth/application/dto/AuthLogin.dto";
-import { AuthRegisterCompanyDto } from "@Auth/application/dto/AuthRegisterCompany.dto";
+import { AuthRegisterEnterpriseDto } from "@Auth/application/dto/AuthRegisterEnterprise.dto";
 import { AuthSignUpDto } from "@Auth/application/dto/AuthSignUp.dto";
 import { Body, Controller, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
@@ -14,7 +14,7 @@ export class AuthHttpController extends BaseHttpController {
     constructor (
         private readonly authLoginService: AuthLoginService,
         private readonly authSignUpService: AuthSignUpService,
-        private readonly authRegisterCompanyService: AuthRegisterCompanyService,
+        private readonly authRegisterEnterpriseService: AuthRegisterEnterpriseService,
     ) {
         super();
     }
@@ -31,9 +31,9 @@ export class AuthHttpController extends BaseHttpController {
         return this.success({ signedUp: user });
     }
 
-    @Post('registerCompany')
-    public async registerCompany(@Body() dto: AuthRegisterCompanyDto) {
-        const company = await this.authRegisterCompanyService.run(dto);
-        return this.success({ company });
+    @Post('registerEnterprise')
+    public async registerEnterprise(@Body() dto: AuthRegisterEnterpriseDto) {
+        const enterprise = await this.authRegisterEnterpriseService.run(dto);
+        return this.success({ enterprise });
     }
 }

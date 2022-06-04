@@ -1,9 +1,9 @@
-import { CompanyCouldNotBeRegisteredException } from "@Auth/domain/exception/CompanyCouldNotBeRegistered.exception";
+import { EnterpriseCouldNotBeRegisteredException } from "@Auth/domain/exception/EnterpriseCouldNotBeRegistered.exception";
 import { CouldNotSignUpUserException } from "@Auth/domain/exception/CouldNotSignUpUser.exception";
 import { UserJustExistsException } from "@Auth/domain/exception/UserJustExists.exception";
 import { WrongUserOrPasswordException } from "@Auth/domain/exception/WrongUserOrPassword.exception";
 import { Inject, Injectable } from "@nestjs/common";
-import { Company } from "@Shared/entity/Company";
+import { Enterprise } from "@Shared/entity/Enterprise";
 import { User } from "@Shared/entity/User";
 import { MongoRepository } from "@Shared/persistence/mongo/Mongo.repository";
 import { SharedConstants } from "@Shared/Shared.constants";
@@ -34,7 +34,7 @@ export class AuthMongoRepository extends MongoRepository {
         const user = partialAssign(new User(), {
             _id: userDoc._id as any,
             email: userDoc.email,
-            companyId: userDoc.companyId,
+            enterpriseId: userDoc.enterpriseId,
             name: userDoc.name,
             permissions: userDoc.permissions,
             isAdmin: userDoc.isAdmin,
@@ -45,13 +45,13 @@ export class AuthMongoRepository extends MongoRepository {
         return user;
     }
 
-    public async registerCompany(company: Company) {
-        const { acknowledged } = await this.db.collection('company').insertOne(company as any);
-        if (!acknowledged) throw new CompanyCouldNotBeRegisteredException();
+    public async registerEnterprise(enterprise: Enterprise) {
+        const { acknowledged } = await this.db.collection('enterprise').insertOne(enterprise as any);
+        if (!acknowledged) throw new EnterpriseCouldNotBeRegisteredException();
     }
 
-    public async checkIfUserJustExists (email: string, companyId: string) {
-        const counter = await this.collection.count({ email, companyId });
-        if (counter >= 1) throw new UserJustExistsException(email, companyId);
+    public async checkIfUserJustExists (email: string, enterpriseId: string) {
+        const counter = await this.collection.count({ email, enterpriseId });
+        if (counter >= 1) throw new UserJustExistsException(email, enterpriseId);
     }
 }

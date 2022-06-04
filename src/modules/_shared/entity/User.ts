@@ -8,7 +8,7 @@ export type UserPermissionsType = {
 }
 export class User {
     public _id: string;
-    public companyId: string;
+    public enterpriseId: string;
     public email: string;
     public password: string;
     public name: string;
@@ -31,7 +31,7 @@ export class User {
     public toPrimitive () {
         return {
             _id: this._id,
-            companyId: this.companyId,
+            enterpriseId: this.enterpriseId,
             email: this.email,
             name: this.name,
             permissions: this.permissions,

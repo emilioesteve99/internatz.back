@@ -20,7 +20,7 @@
       "paths": {
           "@Shared/*": ["modules/_shared/*"],
           "@Auth/*": ["modules/Auth/*"],
-          "@Company/*": ["modules/Company/*"],
+          "@Enterprise/*": ["modules/Enterprise/*"]
       }
   },
   "exclude": ["node_modules"]

@@ -1,4 +1,4 @@
-export class Company {
+export class Enterprise {
 	_id: string;
 	name: string;
 	adminUserId: string;

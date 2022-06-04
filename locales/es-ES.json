@@ -1,6 +1,6 @@
 {
 	"Wrong user or password": "Wrong user or password",
-	"Company not found": "Company not found",
-	"Company {{companyId}} not found": "Company {{companyId}} not found",
+	"Enterprise not found": "Enterprise not found",
+	"Enterprise {{enterpriseId}} not found": "Enterprise {{enterpriseId}} not found",
 	"User not authorized": "User not authorized"
 }

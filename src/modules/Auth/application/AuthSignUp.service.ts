@@ -11,19 +11,21 @@ export class AuthSignUpService {
 		private readonly authMongoRepository: AuthMongoRepository
 	) {}
 
-	public async run (dto: AuthSignUpDto, isAdmin?: boolean) {
-		await this.authMongoRepository.checkIfUserJustExists(dto.email, dto.companyId);
+	public async run (dto: AuthSignUpDto, extraParams?: {
+		userId?: string, isAdmin?: boolean
+	}) {
+		await this.authMongoRepository.checkIfUserJustExists(dto.email, dto.enterpriseId);
 		const user = partialAssign(new User(), {
-			_id: randomUUID(),
+			_id: extraParams.userId ?? randomUUID(),
 			email: dto.email,
 			password: dto.password,
-			companyId: dto.companyId,
+			enterpriseId: dto.enterpriseId,
 			name: dto.name,
 			permissions: {
 				'route': {},
 				'endpoint': {},
 			},
-			isAdmin: isAdmin ?? false,
+			isAdmin: extraParams.isAdmin ?? false,
 			dateAdd: new Date(),
 		});
 		await user.encriptPassword();

@@ -3,8 +3,8 @@ import { AuthHttpController } from "@Auth/infrastructure/controller/AuthHttp.con
 import { AuthLoginService } from "@Auth/application/AuthLogin.service";
 import { AuthGetUserService } from "@Auth/application/AuthGetUser.service";
 import { AuthMongoRepository } from "@Auth/infrastructure/persistence/mongo/AuthMongo.repository";
-import { AuthSignUpService } from "./application/AuthSignUp.service";
-import { AuthRegisterCompanyService } from "./application/AuthRegisterCompany.service";
+import { AuthSignUpService } from "@Auth/application/AuthSignUp.service";
+import { AuthRegisterEnterpriseService } from "./application/AuthRegisterEnterprise.service";
 
 @Global()
 @Module({
@@ -13,7 +13,7 @@ import { AuthRegisterCompanyService } from "./application/AuthRegisterCompany.se
         AuthLoginService,
         AuthSignUpService,
         AuthGetUserService,
-        AuthRegisterCompanyService,
+        AuthRegisterEnterpriseService,
         AuthMongoRepository,
     ],
     exports: [

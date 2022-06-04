@@ -25,7 +25,7 @@ export class RequestContextMiddleware implements NestMiddleware<Request, Respons
             const payload = await this.identityGetSessionTokenSecret.run(sessionToken) as JwtPayload;
             const user = partialAssign(new User(), {
                 _id: payload._id,
-                companyId: payload.companyId,
+                enterpriseId: payload.enterpriseId,
                 email: payload.email,
                 isAdmin: payload.isAdmin,
                 name: payload.name,
