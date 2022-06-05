@@ -1,3 +1,4 @@
+import { Enterprise } from '@Shared/entity/Enterprise';
 import { User } from '@Shared/entity/User';
 import { AsyncLocalStorage } from 'async_hooks';
 import { RequestContext } from './RequestContext';
@@ -5,6 +6,7 @@ import { RequestContext } from './RequestContext';
 export class ContextState {
     public locale: string;
     public user: User;
+    public enterprise: Enterprise;
     public sessionToken: string;
     public requestId: string;
     public debug: boolean;

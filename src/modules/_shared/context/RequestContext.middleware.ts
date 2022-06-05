@@ -1,3 +1,4 @@
+import { EnterpriseGetService } from "@Enterprise/application/EnterpriseGet.service";
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import { User } from "@Shared/entity/User";
 import { IdentityGetSessionTokenContentService } from "@Shared/identity/IdentityGetSessionTokenContent.service";
@@ -11,10 +12,11 @@ import { RequestContext } from "./RequestContext";
 @Injectable()
 export class RequestContextMiddleware implements NestMiddleware<Request, Response> {
     constructor (
-        private readonly identityGetSessionTokenSecret: IdentityGetSessionTokenContentService
+        private readonly identityGetSessionTokenSecret: IdentityGetSessionTokenContentService,
+        private readonly enterpriseGetService: EnterpriseGetService,
     ) {}
 
-    async use(req: Request, res: Response, next: (error?: any) => void) {
+    async use(req: Request, _res: Response, next: (error?: any) => void) {
         RequestContext.start();
         const url = new URL(`http://${req.hostname}/${req.originalUrl}`);
         const params = url.searchParams;
@@ -31,7 +33,10 @@ export class RequestContextMiddleware implements NestMiddleware<Request, Respons
                 name: payload.name,
                 permissions: payload.permissions
             });
-            RequestContext.updateContext({ user, sessionToken });
+            const enterprise = await this.enterpriseGetService.run({
+                enterpriseId: user.enterpriseId
+            })
+            RequestContext.updateContext({ user, sessionToken, enterprise });
         }
         RequestContext.updateContext({
             debug: params.has('debug'),
