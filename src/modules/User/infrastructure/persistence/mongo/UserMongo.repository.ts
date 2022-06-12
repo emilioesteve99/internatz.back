@@ -1,5 +1,6 @@
 import { UserNotFoundException } from "@Auth/domain/exception/UserNotFound.exception";
 import { Inject, Injectable } from "@nestjs/common";
+import { UserPermissionsType } from "@Shared/entity/User.entity";
 import { MongoRepository } from "@Shared/persistence/mongo/Mongo.repository";
 import { SharedConstants } from "@Shared/Shared.constants";
 import { MongoClient } from "mongodb";
@@ -23,5 +24,12 @@ export class UserMongoRepository extends MongoRepository {
 	public async getEnterpriseUsers(enterpriseId: string) {
 		const userDocs = await this.collection.find({ enterpriseId }).toArray();
 		return userDocs.map(userDoc => UserMongoMapper.map(userDoc));
+	}
+
+	public async setUserPermissions(userId: string, permissions: UserPermissionsType) {
+		const { acknowledged } = await this.collection.updateOne({ _id: userId }, {
+			$set: { permissions },
+		});
+		return acknowledged;
 	}
 }

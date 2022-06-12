@@ -9,6 +9,6 @@ export class UserSetPermissionsService {
 	) {}
 
 	public async run (dto: UserSetPermissionsDto) {
-
+		return this.userRepository.setUserPermissions(dto.userId, dto.permissions);
 	}
 }
