@@ -21,7 +21,8 @@
           "@Shared/*": ["modules/_shared/*"],
           "@Auth/*": ["modules/Auth/*"],
           "@Enterprise/*": ["modules/Enterprise/*"],
-          "@Translation/*": ["modules/Translation/*"]
+          "@Translation/*": ["modules/Translation/*"],
+          "@User/*": ["modules/User/*"],
       }
   },
   "exclude": ["node_modules"]

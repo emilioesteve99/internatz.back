@@ -1,9 +1,8 @@
 import { EnterpriseGetService } from "@Enterprise/application/EnterpriseGet.service";
 import { Injectable, NestMiddleware } from "@nestjs/common";
-import { User } from "@Shared/entity/User";
 import { IdentityGetSessionTokenContentService } from "@Shared/identity/IdentityGetSessionTokenContent.service";
 import { apm } from "@Shared/logger/Apm";
-import { partialAssign } from "@Shared/utils/PartialAssign";
+import { UserGetService } from "@User/application/UserGet.service";
 import { randomUUID } from "crypto";
 import { Request, Response } from 'express';
 import { JwtPayload } from "jsonwebtoken";
@@ -14,6 +13,7 @@ export class RequestContextMiddleware implements NestMiddleware<Request, Respons
     constructor (
         private readonly identityGetSessionTokenSecret: IdentityGetSessionTokenContentService,
         private readonly enterpriseGetService: EnterpriseGetService,
+        private readonly userGetService: UserGetService
     ) {}
 
     async use(req: Request, _res: Response, next: (error?: any) => void) {
@@ -25,17 +25,12 @@ export class RequestContextMiddleware implements NestMiddleware<Request, Respons
         if (authHeader) {
             const sessionToken = authHeader.replace('Bearer ', '');
             const payload = await this.identityGetSessionTokenSecret.run(sessionToken) as JwtPayload;
-            const user = partialAssign(new User(), {
-                _id: payload._id,
-                enterpriseId: payload.enterpriseId,
-                email: payload.email,
-                isAdmin: payload.isAdmin,
-                name: payload.name,
-                permissions: payload.permissions
-            });
-            const enterprise = await this.enterpriseGetService.run({
-                enterpriseId: user.enterpriseId
-            })
+            const [ user, enterprise ] = await Promise.all([
+                this.userGetService.run({ _id: payload._id }),
+                this.enterpriseGetService.run({
+                    enterpriseId: payload.enterpriseId
+                }),
+            ]);
             RequestContext.updateContext({ user, sessionToken, enterprise });
         }
         RequestContext.updateContext({

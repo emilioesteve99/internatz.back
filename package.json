@@ -57,6 +57,7 @@
     "@Shared": "dist/modules/_shared",
     "@Auth": "dist/modules/Auth",
     "@Enterprise": "dist/modules/Enterprise",
-    "@Translation": "dist/modules/Translation"
+    "@Translation": "dist/modules/Translation",
+    "@User": "dist/modules/User"
   }
 }
