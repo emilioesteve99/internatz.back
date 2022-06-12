@@ -19,4 +19,9 @@ export class UserMongoRepository extends MongoRepository {
 		if (!userDoc) throw new UserNotFoundException(id);
 		return UserMongoMapper.map(userDoc);
 	}
+
+	public async getEnterpriseUsers(enterpriseId: string) {
+		const userDocs = await this.collection.find({ enterpriseId }).toArray();
+		return userDocs.map(userDoc => UserMongoMapper.map(userDoc));
+	}
 }

@@ -18,7 +18,7 @@ export class AuthRegisterEnterpriseService {
 		const enterpriseId = randomUUID();
 		const userId = randomUUID();
 		const enterprise = partialAssign(new Enterprise(), {
-			_id: randomUUID(),
+			_id: enterpriseId,
 			name: dto.name,
 			adminUserId: userId,
 			apiKey: randomUUID(),
