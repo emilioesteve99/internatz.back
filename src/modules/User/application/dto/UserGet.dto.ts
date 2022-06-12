@@ -1,3 +1,3 @@
 export class UserGetDto {
-	_id: string;
+	userId: string;
 }

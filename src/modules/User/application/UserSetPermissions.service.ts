@@ -1,14 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { UserMongoRepository } from "@User/infrastructure/persistence/mongo/UserMongo.repository";
-import { UserGetDto } from "./dto/UserGet.dto";
+import { UserSetPermissionsDto } from "./dto/UserSetPermissions.dto";
 
 @Injectable()
-export class UserGetService {
+export class UserSetPermissionsService {
 	constructor (
 		private readonly userRepository: UserMongoRepository
 	) {}
 
-	public async run (dto: UserGetDto) {
-		return this.userRepository.getUser(dto.userId);
+	public async run (dto: UserSetPermissionsDto) {
+
 	}
 }

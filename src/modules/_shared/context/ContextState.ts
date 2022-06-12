@@ -1,5 +1,5 @@
-import { Enterprise } from '@Shared/entity/Enterprise';
-import { User } from '@Shared/entity/User';
+import { Enterprise } from '@Shared/entity/Enterprise.entity';
+import { User } from '@Shared/entity/User.entity';
 import { AsyncLocalStorage } from 'async_hooks';
 import { RequestContext } from './RequestContext';
 

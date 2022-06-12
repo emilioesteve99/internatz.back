@@ -1,6 +1,6 @@
 import { AuthMongoRepository } from "@Auth/infrastructure/persistence/mongo/AuthMongo.repository";
 import { Injectable } from "@nestjs/common";
-import { User } from "@Shared/entity/User";
+import { User } from "@Shared/entity/User.entity";
 import { partialAssign } from "@Shared/utils/PartialAssign";
 import { randomUUID } from "crypto";
 import { AuthSignUpDto } from "./dto/AuthSignUp.dto";

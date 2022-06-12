@@ -1,4 +1,4 @@
-import { User } from "@Shared/entity/User";
+import { User } from "@Shared/entity/User.entity";
 import { partialAssign } from "@Shared/utils/PartialAssign";
 
 export class UserMongoMapper {

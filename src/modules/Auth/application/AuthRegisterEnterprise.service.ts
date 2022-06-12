@@ -1,7 +1,7 @@
 import { AuthMongoRepository } from "@Auth/infrastructure/persistence/mongo/AuthMongo.repository";
 import { Injectable } from "@nestjs/common";
-import { Enterprise } from "@Shared/entity/Enterprise";
-import { User } from "@Shared/entity/User";
+import { Enterprise } from "@Shared/entity/Enterprise.entity";
+import { User } from "@Shared/entity/User.entity";
 import { partialAssign } from "@Shared/utils/PartialAssign";
 import { randomUUID } from "crypto";
 import { AuthSignUpService } from "./AuthSignUp.service";

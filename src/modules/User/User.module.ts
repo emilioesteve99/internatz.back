@@ -3,6 +3,7 @@ import { UserHttpController } from "@User/infrastructure/controller/UserHttp.con
 import { UserGetService } from "@User/application/UserGet.service";
 import { UserMongoRepository } from "@User/infrastructure/persistence/mongo/UserMongo.repository";
 import { UserGetEnterpriseUsersService } from "@User/application/UserGetEnterpriseUsers.service";
+import { UserSetPermissionsService } from "@User/application/UserSetPermissions.service";
 
 @Global()
 @Module({
@@ -10,7 +11,8 @@ import { UserGetEnterpriseUsersService } from "@User/application/UserGetEnterpri
 	providers: [
 		UserGetService,
 		UserMongoRepository,
-		UserGetEnterpriseUsersService
+		UserGetEnterpriseUsersService,
+		UserSetPermissionsService
 	],
 	exports: [
 		UserGetService,

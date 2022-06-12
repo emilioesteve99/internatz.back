@@ -1,7 +1,7 @@
 import { EnterpriseNotFoundException } from "@Enterprise/domain/exception/EnterpriseNotFound.exception";
 import { EnterpriseNotFoundByApiKey } from "@Enterprise/domain/exception/EnterpriseNotFoundByApiKey.exception";
 import { Inject, Injectable } from "@nestjs/common";
-import { Enterprise } from "@Shared/entity/Enterprise";
+import { Enterprise } from "@Shared/entity/Enterprise.entity";
 import { MongoRepository } from "@Shared/persistence/mongo/Mongo.repository";
 import { SharedConstants } from "@Shared/Shared.constants";
 import { MongoClient } from "mongodb";

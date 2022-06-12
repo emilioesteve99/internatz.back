@@ -3,8 +3,8 @@ import { CouldNotSignUpUserException } from "@Auth/domain/exception/CouldNotSign
 import { UserJustExistsException } from "@Auth/domain/exception/UserJustExists.exception";
 import { WrongUserOrPasswordException } from "@Auth/domain/exception/WrongUserOrPassword.exception";
 import { Inject, Injectable } from "@nestjs/common";
-import { Enterprise } from "@Shared/entity/Enterprise";
-import { User } from "@Shared/entity/User";
+import { Enterprise } from "@Shared/entity/Enterprise.entity";
+import { User } from "@Shared/entity/User.entity";
 import { MongoRepository } from "@Shared/persistence/mongo/Mongo.repository";
 import { SharedConstants } from "@Shared/Shared.constants";
 import { partialAssign } from "@Shared/utils/PartialAssign";

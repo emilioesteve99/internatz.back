@@ -26,7 +26,7 @@ export class RequestContextMiddleware implements NestMiddleware<Request, Respons
             const sessionToken = authHeader.replace('Bearer ', '');
             const payload = await this.identityGetSessionTokenSecret.run(sessionToken) as JwtPayload;
             const [ user, enterprise ] = await Promise.all([
-                this.userGetService.run({ _id: payload._id }),
+                this.userGetService.run({ userId: payload._id }),
                 this.enterpriseGetService.run({
                     enterpriseId: payload.enterpriseId
                 }),
