@@ -15,13 +15,20 @@ export class TranslationMongoRepository extends MongoRepository {
 	}
 
 	public async bulkWrite(translations: Translation[]) {
-		return true;
+		var bulk = this.collection.initializeUnorderedBulkOp();
+        for (let doc of translations) {
+            bulk.find({ key: doc.key, scope: doc.scope })
+                .upsert()
+                .replaceOne(doc);
+        }
+        const { ok } = await bulk.execute();
+		return ok >= 1;
 	}
 
 	public async getTranslationsByScopes(scopes: string[], enterpriseId: string) {
 		const translations = await this.collection.find({ enterpriseId, scope: {
 			$in: scopes,
-		}})
+		}}).toArray();
 		return translations.map(translationDoc => {
 			const translation = TranslationMongoMapper.map(translationDoc);
 			delete translation._id;
