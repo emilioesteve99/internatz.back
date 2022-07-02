@@ -15,8 +15,8 @@ if (active) {
         serverUrl,
         secretToken,
         environment: process.env.MODE,
-        logLevel: 'error'
-    })
+        logLevel: 'error',
+    });
 }
 
 export { apm };

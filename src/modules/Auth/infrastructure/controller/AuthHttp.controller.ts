@@ -1,12 +1,12 @@
-import { AuthLoginService } from "@Auth/application/AuthLogin.service";
-import { AuthRegisterEnterpriseService } from "@Auth/application/AuthRegisterEnterprise.service";
-import { AuthSignUpService } from "@Auth/application/AuthSignUp.service";
-import { AuthLoginDto } from "@Auth/application/dto/AuthLogin.dto";
-import { AuthRegisterEnterpriseDto } from "@Auth/application/dto/AuthRegisterEnterprise.dto";
-import { AuthSignUpDto } from "@Auth/application/dto/AuthSignUp.dto";
-import { Body, Controller, Post } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { BaseHttpController } from "@Shared/controller/BaseHttp.controller";
+import { AuthLoginService } from '@Auth/application/AuthLogin.service';
+import { AuthRegisterEnterpriseService } from '@Auth/application/AuthRegisterEnterprise.service';
+import { AuthSignUpService } from '@Auth/application/AuthSignUp.service';
+import { AuthLoginDto } from '@Auth/application/dto/AuthLogin.dto';
+import { AuthRegisterEnterpriseDto } from '@Auth/application/dto/AuthRegisterEnterprise.dto';
+import { AuthSignUpDto } from '@Auth/application/dto/AuthSignUp.dto';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { BaseHttpController } from '@Shared/controller/BaseHttp.controller';
 
 @ApiTags('Auth')
 @Controller('auth')

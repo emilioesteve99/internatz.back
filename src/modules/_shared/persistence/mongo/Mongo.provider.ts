@@ -1,8 +1,8 @@
-import { logError } from "@Shared/logger/LogError";
-import { MongoClient, ServerApiVersion } from "mongodb";
-import { MongoConfigurationType } from "./MongoConfiguration";
+import { logError } from '@Shared/logger/LogError';
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import { MongoConfigurationType } from './MongoConfiguration';
 
-export async function MongoProvider (configuration: MongoConfigurationType): Promise<MongoClient> {
+export async function MongoProvider(configuration: MongoConfigurationType): Promise<MongoClient> {
     const { name, url, pool } = configuration;
     let client = null;
     const poolNameString = name ? ` ${name} ` : ' ';

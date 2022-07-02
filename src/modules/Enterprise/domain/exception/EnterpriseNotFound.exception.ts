@@ -1,12 +1,7 @@
-import { BaseException } from "@Shared/exception/Exception.base";
+import { BaseException } from '@Shared/exception/Exception.base';
 
 export class EnterpriseNotFoundException extends BaseException {
-	constructor (enterpriseId: string) {
-		super(
-			'Enterprise not found',
-			'Enterprise {{enterpriseId}} not found',
-			{ enterpriseId },
-			400
-		)
-	}
+    constructor(enterpriseId: string) {
+        super('Enterprise not found', 'Enterprise {{enterpriseId}} not found', { enterpriseId }, 400);
+    }
 }

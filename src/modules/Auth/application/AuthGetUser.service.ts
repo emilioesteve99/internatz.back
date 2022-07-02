@@ -1,10 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AuthGetUserService {
-    constructor () {}
+    constructor() {}
 
-    public async run (userId: string) {
-        
-    }
+    public async run(userId: string) {}
 }

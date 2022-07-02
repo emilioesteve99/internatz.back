@@ -1,4 +1,4 @@
-import { apm } from "@Shared/logger/Apm";
+import { apm } from '@Shared/logger/Apm';
 
 process.on('unhandledRejection', (err) => {
     apm?.captureError(err as any);

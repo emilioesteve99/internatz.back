@@ -7,7 +7,7 @@ export type RedisConfigurationType = {
     password: string;
     database: number;
     active: boolean;
-}
+};
 
 export async function RedisProvider(configuration: RedisConfigurationType): Promise<RedisClientType> {
     const { url, username, password, database } = configuration;
@@ -18,7 +18,7 @@ export async function RedisProvider(configuration: RedisConfigurationType): Prom
             url,
             username,
             password,
-            database
+            database,
         });
         await client.connect();
         console.log(

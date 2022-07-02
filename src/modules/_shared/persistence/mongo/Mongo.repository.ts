@@ -1,11 +1,9 @@
-import { Db, MongoClient } from "mongodb";
+import { Db, MongoClient } from 'mongodb';
 
 export class MongoRepository {
     protected readonly client: MongoClient;
 
-    constructor (
-        private readonly configuration: MongoRepositoryConfigurationType
-    ) {}
+    constructor(private readonly configuration: MongoRepositoryConfigurationType) {}
 
     protected get db(): Db {
         return this.client.db(this.configuration.database);
@@ -19,4 +17,4 @@ export class MongoRepository {
 export type MongoRepositoryConfigurationType = {
     database: string;
     collection: string;
-}
+};

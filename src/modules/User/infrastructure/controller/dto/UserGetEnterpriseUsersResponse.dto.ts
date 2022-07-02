@@ -1,5 +1,5 @@
-import { User } from "@Shared/entity/User.entity";
+import { User } from '@Shared/entity/User.entity';
 
 export class UserGetEnterpriseUsersResponseDto {
-	data: User[];
+    data: User[];
 }

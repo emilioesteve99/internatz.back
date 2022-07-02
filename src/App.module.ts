@@ -7,14 +7,8 @@ import { UserModule } from '@User/User.module';
 
 @Global()
 @Module({
-    imports: [
-        SharedModule,
-        AuthModule,
-        EnterpriseModule,
-        TranslationModule,
-        UserModule,
-    ],
+    imports: [SharedModule, AuthModule, EnterpriseModule, TranslationModule, UserModule],
     controllers: [],
     providers: [],
 })
-export class AppModule {};
+export class AppModule {}

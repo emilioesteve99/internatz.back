@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class EnterpriseGetDto {
-	@IsString()
-	@IsNotEmpty()
-	enterpriseId: string;
+    @IsString()
+    @IsNotEmpty()
+    enterpriseId: string;
 }

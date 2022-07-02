@@ -1,20 +1,18 @@
-import { ArgumentsHost, Catch, ExceptionFilter } from "@nestjs/common";
-import { RequestContext } from "@Shared/context/RequestContext";
-import { getEnv } from "@Shared/environment/GetEnv";
-import { apm } from "@Shared/logger/Apm";
-import { HttpResponse } from "@Shared/response/HttpResponse";
-import { TranslationService } from "@Shared/translation/Translation.service";
-import { convertEnvToBoolean } from "@Shared/utils/ConvertEnvToBoolean";
-import { randomUUID } from "node:crypto";
-import { BaseException } from "./Exception.base";
+import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
+import { RequestContext } from '@Shared/context/RequestContext';
+import { getEnv } from '@Shared/environment/GetEnv';
+import { apm } from '@Shared/logger/Apm';
+import { HttpResponse } from '@Shared/response/HttpResponse';
+import { TranslationService } from '@Shared/translation/Translation.service';
+import { convertEnvToBoolean } from '@Shared/utils/ConvertEnvToBoolean';
+import { randomUUID } from 'node:crypto';
+import { BaseException } from './Exception.base';
 
 const errorLogPrint = getEnv<boolean>('errorLogPrint');
 
 @Catch()
 export class GlobalExceptionInterceptor implements ExceptionFilter {
-    constructor(
-        private readonly translationService: TranslationService
-    ) { }
+    constructor(private readonly translationService: TranslationService) {}
 
     catch(exception: BaseException, host: ArgumentsHost) {
         if (errorLogPrint) {
@@ -35,11 +33,11 @@ export class GlobalExceptionInterceptor implements ExceptionFilter {
                 code: baseException.constructor.name,
                 title: this.translationService.translate(baseException.title, {
                     locale: ctx.locale,
-                    vars: baseException.detailArgs
+                    vars: baseException.detailArgs,
                 }),
                 detail: this.translationService.translate(baseException.detail, {
                     locale: ctx.locale,
-                    vars: baseException.detailArgs
+                    vars: baseException.detailArgs,
                 }),
                 trace: this.prepareTrace(baseException.stack),
             };

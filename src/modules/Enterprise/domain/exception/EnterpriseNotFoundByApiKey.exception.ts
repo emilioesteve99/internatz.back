@@ -1,9 +1,7 @@
-import { BaseException } from "@Shared/exception/Exception.base";
+import { BaseException } from '@Shared/exception/Exception.base';
 
 export class EnterpriseNotFoundByApiKey extends BaseException {
-	constructor () {
-		super(
-			'Enterprise not found'
-		)
-	}
+    constructor() {
+        super('Enterprise not found');
+    }
 }

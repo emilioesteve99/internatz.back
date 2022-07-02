@@ -4,9 +4,8 @@ import { RedisClientType } from 'redis';
 
 @Injectable()
 export class CacheService {
-    private defaultSeconds: number = getEnv('redisDefaultSeconds')
-        ?? 60;
-    constructor(private readonly redisClient: RedisClientType) { }
+    private defaultSeconds: number = getEnv('redisDefaultSeconds') ?? 60;
+    constructor(private readonly redisClient: RedisClientType) {}
 
     public async getMany(keys: string[]): Promise<any[]> {
         const results = await this.redisClient?.mGet(keys);

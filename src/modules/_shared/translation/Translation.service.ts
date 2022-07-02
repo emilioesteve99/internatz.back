@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common";
-import { RequestContext } from "@Shared/context/RequestContext";
-import { I18n } from "i18n";
-import { join } from "path";
+import { Injectable } from '@nestjs/common';
+import { RequestContext } from '@Shared/context/RequestContext';
+import { I18n } from 'i18n';
+import { join } from 'path';
 
 @Injectable()
 export class TranslationService {
@@ -9,7 +9,7 @@ export class TranslationService {
     private readonly defaultLocale = 'es-ES';
     private readonly localesPath = join(__dirname, '../../../../locales');
 
-    public init () {
+    public init() {
         this.i18n = new I18n();
         this.i18n.configure({
             locales: [
@@ -33,16 +33,13 @@ export class TranslationService {
             directory: this.localesPath,
             mustacheConfig: {
                 tags: ['{{', '}}'],
-                disable: false
+                disable: false,
             },
         });
     }
 
-    public translate(text: string, { locale, vars }: {locale?: string, vars?: any} = {}): string {
+    public translate(text: string, { locale, vars }: { locale?: string; vars?: any } = {}): string {
         locale = locale ?? RequestContext.get()?.locale;
-        return this.i18n.__(
-            { phrase: text, locale: locale ?? this.defaultLocale },
-            vars,
-        );
+        return this.i18n.__({ phrase: text, locale: locale ?? this.defaultLocale }, vars);
     }
 }

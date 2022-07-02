@@ -1,20 +1,20 @@
-import { EnterpriseGetService } from "@Enterprise/application/EnterpriseGet.service";
-import { Injectable, NestMiddleware } from "@nestjs/common";
-import { IdentityGetSessionTokenContentService } from "@Shared/identity/IdentityGetSessionTokenContent.service";
-import { apm } from "@Shared/logger/Apm";
-import { UserGetService } from "@User/application/UserGet.service";
-import { randomUUID } from "crypto";
+import { EnterpriseGetService } from '@Enterprise/application/EnterpriseGet.service';
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { IdentityGetSessionTokenContentService } from '@Shared/identity/IdentityGetSessionTokenContent.service';
+import { apm } from '@Shared/logger/Apm';
+import { UserGetService } from '@User/application/UserGet.service';
+import { randomUUID } from 'crypto';
 import { Request, Response } from 'express';
-import { JwtPayload } from "jsonwebtoken";
-import { RequestContext } from "./RequestContext";
+import { JwtPayload } from 'jsonwebtoken';
+import { RequestContext } from './RequestContext';
 
 @Injectable()
 export class RequestContextMiddleware implements NestMiddleware<Request, Response> {
     constructor(
         private readonly identityGetSessionTokenSecret: IdentityGetSessionTokenContentService,
         private readonly enterpriseGetService: EnterpriseGetService,
-        private readonly userGetService: UserGetService
-    ) { }
+        private readonly userGetService: UserGetService,
+    ) {}
 
     async use(req: Request, _res: Response, next: (error?: any) => void) {
         RequestContext.start();
@@ -28,7 +28,7 @@ export class RequestContextMiddleware implements NestMiddleware<Request, Respons
             const [user, enterprise] = await Promise.all([
                 this.userGetService.run({ userId: payload._id }),
                 this.enterpriseGetService.run({
-                    enterpriseId: payload.enterpriseId
+                    enterpriseId: payload.enterpriseId,
                 }),
             ]);
             RequestContext.updateContext({ user, sessionToken, enterprise });

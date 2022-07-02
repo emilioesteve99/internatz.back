@@ -1,13 +1,13 @@
-import { IsEmail, IsString } from "class-validator";
+import { IsEmail, IsString } from 'class-validator';
 
 export class AuthRegisterEnterpriseDto {
-	@IsString()
-	name: string;
+    @IsString()
+    name: string;
 
-	@IsString()
-	@IsEmail()
-	email: string;
+    @IsString()
+    @IsEmail()
+    email: string;
 
-	@IsString()
-	password: string;
+    @IsString()
+    password: string;
 }

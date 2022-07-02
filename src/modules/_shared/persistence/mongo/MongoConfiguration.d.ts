@@ -5,4 +5,4 @@ export type MongoConfigurationType = {
         max: number;
         min: number;
     };
-}
+};
