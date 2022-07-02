@@ -5,6 +5,7 @@ import { AuthGetUserService } from "@Auth/application/AuthGetUser.service";
 import { AuthMongoRepository } from "@Auth/infrastructure/persistence/mongo/AuthMongo.repository";
 import { AuthSignUpService } from "@Auth/application/AuthSignUp.service";
 import { AuthRegisterEnterpriseService } from "./application/AuthRegisterEnterprise.service";
+import { AuthSignTokenService } from "./application/AuthSignToken.service";
 
 @Global()
 @Module({
@@ -15,9 +16,10 @@ import { AuthRegisterEnterpriseService } from "./application/AuthRegisterEnterpr
         AuthGetUserService,
         AuthRegisterEnterpriseService,
         AuthMongoRepository,
+        AuthSignTokenService,
     ],
     exports: [
         AuthGetUserService,
     ]
 })
-export class AuthModule {};
+export class AuthModule { };

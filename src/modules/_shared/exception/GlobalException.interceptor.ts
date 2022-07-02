@@ -1,5 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from "@nestjs/common";
 import { RequestContext } from "@Shared/context/RequestContext";
+import { getEnv } from "@Shared/environment/GetEnv";
 import { apm } from "@Shared/logger/Apm";
 import { HttpResponse } from "@Shared/response/HttpResponse";
 import { TranslationService } from "@Shared/translation/Translation.service";
@@ -7,14 +8,16 @@ import { convertEnvToBoolean } from "@Shared/utils/ConvertEnvToBoolean";
 import { randomUUID } from "node:crypto";
 import { BaseException } from "./Exception.base";
 
+const errorLogPrint = getEnv<boolean>('errorLogPrint');
+
 @Catch()
 export class GlobalExceptionInterceptor implements ExceptionFilter {
-    constructor (
+    constructor(
         private readonly translationService: TranslationService
-    ) {}
+    ) { }
 
     catch(exception: BaseException, host: ArgumentsHost) {
-        if (convertEnvToBoolean(process.env.ERROR_LOG_PRINT)) {
+        if (errorLogPrint) {
             console.log(exception);
         }
         const ctx = RequestContext.get();

@@ -6,9 +6,9 @@ import * as jwt from "jsonwebtoken";
 export class IdentityGetSessionTokenContentService {
 	private readonly tokenSecret = getEnv<string>('tokenSecret');
 
-	constructor () {}
+	constructor() { }
 
-	public async run (token: string) {
+	public run(token: string) {
 		return jwt.verify(token, this.tokenSecret);
 	}
 }

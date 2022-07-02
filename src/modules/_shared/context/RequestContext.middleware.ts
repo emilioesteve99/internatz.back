@@ -10,11 +10,11 @@ import { RequestContext } from "./RequestContext";
 
 @Injectable()
 export class RequestContextMiddleware implements NestMiddleware<Request, Response> {
-    constructor (
+    constructor(
         private readonly identityGetSessionTokenSecret: IdentityGetSessionTokenContentService,
         private readonly enterpriseGetService: EnterpriseGetService,
         private readonly userGetService: UserGetService
-    ) {}
+    ) { }
 
     async use(req: Request, _res: Response, next: (error?: any) => void) {
         RequestContext.start();
@@ -24,8 +24,8 @@ export class RequestContextMiddleware implements NestMiddleware<Request, Respons
         const authHeader = req.headers['authorization'];
         if (authHeader) {
             const sessionToken = authHeader.replace('Bearer ', '');
-            const payload = await this.identityGetSessionTokenSecret.run(sessionToken) as JwtPayload;
-            const [ user, enterprise ] = await Promise.all([
+            const payload = this.identityGetSessionTokenSecret.run(sessionToken) as JwtPayload;
+            const [user, enterprise] = await Promise.all([
                 this.userGetService.run({ userId: payload._id }),
                 this.enterpriseGetService.run({
                     enterpriseId: payload.enterpriseId

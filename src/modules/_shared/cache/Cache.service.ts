@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { getEnv } from '@Shared/environment/GetEnv';
 import { RedisClientType } from 'redis';
 
 @Injectable()
 export class CacheService {
-    private defaultSeconds: number = process.env.REDIS_DEFAULT_SECONDS
-        ? parseInt(process.env.REDIS_DEFAULT_SECONDS)
-        : 60;
-    constructor(private readonly redisClient: RedisClientType) {}
+    private defaultSeconds: number = getEnv('redisDefaultSeconds')
+        ?? 60;
+    constructor(private readonly redisClient: RedisClientType) { }
 
     public async getMany(keys: string[]): Promise<any[]> {
         const results = await this.redisClient?.mGet(keys);

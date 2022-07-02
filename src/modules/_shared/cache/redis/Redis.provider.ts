@@ -9,7 +9,7 @@ export type RedisConfigurationType = {
     active: boolean;
 }
 
-export async function RedisProvider (configuration: RedisConfigurationType): Promise<RedisClientType> {
+export async function RedisProvider(configuration: RedisConfigurationType): Promise<RedisClientType> {
     const { url, username, password, database } = configuration;
     let client: RedisClientType = null;
     try {

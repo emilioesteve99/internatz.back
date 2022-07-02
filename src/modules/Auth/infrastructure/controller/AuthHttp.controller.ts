@@ -11,7 +11,7 @@ import { BaseHttpController } from "@Shared/controller/BaseHttp.controller";
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthHttpController extends BaseHttpController {
-    constructor (
+    constructor(
         private readonly authLoginService: AuthLoginService,
         private readonly authSignUpService: AuthSignUpService,
         private readonly authRegisterEnterpriseService: AuthRegisterEnterpriseService,
@@ -20,15 +20,15 @@ export class AuthHttpController extends BaseHttpController {
     }
 
     @Post('login')
-    public async login (@Body() dto: AuthLoginDto) {
+    public async login(@Body() dto: AuthLoginDto) {
         const accessToken = await this.authLoginService.run(dto);
         return this.success({ accessToken });
     }
 
     @Post('signup')
-    public async signUp (@Body() dto: AuthSignUpDto) {
-        const user = await this.authSignUpService.run(dto);
-        return this.success({ signedUp: user });
+    public async signUp(@Body() dto: AuthSignUpDto) {
+        const accessToken = await this.authSignUpService.run(dto);
+        return this.success({ accessToken });
     }
 
     @Post('registerEnterprise')

@@ -9,7 +9,7 @@ export abstract class BaseHttpController {
     ): HttpResponse {
         return {
             data,
-            messages: params.messages ?? [],
+            messages: params.messages,
         };
     }
 }
