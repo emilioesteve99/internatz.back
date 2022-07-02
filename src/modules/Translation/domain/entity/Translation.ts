@@ -1,3 +1,5 @@
+import { IsOptional, IsString } from "class-validator";
+
 export class Translation {
     public _id: string;
     public enterpriseId: string;
@@ -8,6 +10,9 @@ export class Translation {
 }
 
 export class TranslationValueByKey {
+    @IsOptional()
+    @IsString()
     'es-ES': string;
+
     [key: string]: string;
 }

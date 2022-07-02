@@ -1,8 +1,11 @@
-import { IsArray, IsString, MinLength } from 'class-validator';
+import { ArrayMinSize, IsArray, IsString } from 'class-validator';
 
 export class TranslationsGetDto {
     @IsArray()
-    @MinLength(1)
+    @ArrayMinSize(1)
     @IsString({ each: true })
     scopes: string[];
+
+    @IsString()
+    apiKey: string;
 }

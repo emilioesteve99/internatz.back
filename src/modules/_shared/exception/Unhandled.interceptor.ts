@@ -1,10 +1,8 @@
-import { apm } from '@Shared/logger/Apm';
+import { logError } from '@Shared/logger/LogError';
 
 process.on('unhandledRejection', (err) => {
-    apm?.captureError(err as any);
-    console.log(err);
+    logError(err);
 });
 process.on('uncaughtException', (err) => {
-    apm?.captureError(err as any);
-    console.log(err);
+    logError(err);
 });

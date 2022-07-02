@@ -27,7 +27,7 @@ export class TranslationHttpController extends BaseHttpController {
     @UseGuards(ApiKeyGuard)
     @Post('getTranslations')
     public async getTranslations(@Body() dto: TranslationsGetDto) {
-        const translations = this.translationsGetService.run(dto);
+        const translations = await this.translationsGetService.run(dto);
         return this.success({ translations });
     }
 }
