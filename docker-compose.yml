@@ -14,7 +14,7 @@ services:
     cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
     cap_drop: ["ALL"]
     ports:
-    - 8200:8200
+    - 0.0.0.0:8200:8200
     command: >
        apm-server -e
          -E apm-server.rum.enabled=true
@@ -44,7 +44,7 @@ services:
     volumes:
     - esdata:/usr/share/elasticsearch/data
     ports:
-    - 9200:9200
+    - 0.0.0.0:9200:9200
     healthcheck:
       interval: 20s
       retries: 10
@@ -62,7 +62,7 @@ services:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
     ports:
-    - 5601:5601
+    - 0.0.0.0:5601:5601
     healthcheck:
       interval: 10s
       retries: 20
